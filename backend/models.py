@@ -37,12 +37,10 @@ class parking_lot(db.Model):
     address = db.Column(db.String(100),unique=True ,nullable=False)
     pin_code = db.Column(db.Integer(), nullable=False)
     maximum_number_of_spots = db.Column(db.Integer(), nullable=False)
-    available_spots = db.Column(db.Integer(), nullable=False)   # calculate it and then display remove from here
+    available_spots = db.Column(db.Integer(), nullable=False) 
     spots = db.relationship('parking_spot', backref='parking_lot')  
     
-    def __repr__(self):
-        return f'<ParkingLot {self.prime_location_name}>'
-    
+   
     
 class parking_spot(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
@@ -50,8 +48,7 @@ class parking_spot(db.Model):
     status = db.Column(db.String(100), nullable=False)
     lot_id = db.Column(db.Integer(), db.ForeignKey('parking_lot.id'), nullable=False)
     
-    def __repr__(self):
-        return f'<ParkingSpot {self.spot_number}>'
+   
 
 class reserve_parking_spot(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
@@ -62,10 +59,6 @@ class reserve_parking_spot(db.Model):
     leaving_time = db.Column(db.DateTime())
     parking_cost_per_hour = db.Column(db.Integer(),nullable=False)
     total_cost = db.Column(db.Integer()) 
-    total_duration = db.Column(db.Integer()) 
-    lot_id = db.Column(db.Integer(),nullable=False) #remove it asap find another way to get lot id
-    
-    def __repr__(self):
-        return f'<ReserveParkingSpot {self.id}>'
+    total_duration = db.Column(db.Integer())
     
     
